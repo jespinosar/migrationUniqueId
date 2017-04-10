@@ -1,0 +1,101 @@
+swagger: '2.0'
+info:
+  version: '0.6.6'
+  title: ChangeUniqueId API
+  description: API describing ChangeUniqueId API
+  contact:
+    name: GVP OSSBSS team
+    email: javier.espinosaruiz@telefonica.com
+  
+host: babom.gvp.telefonica.com
+basePath: /ossbss/v1
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /ChangeUniqueId:
+ 
+    post:
+      description: For a given instance, it changes the old uniqueId for the new uniqueId
+      operationId: operationChangeUniqueId
+      produces:
+        - application/json
+      parameters:
+        - name: changeItem
+          in: body
+          description: Structure with instance + old and new uniqueId.
+          required: true
+          schema:
+            $ref: '#/definitions/changeItem'
+       
+      responses:
+        '200':
+          description: changeUniqueId response
+          schema:
+            $ref: '#/definitions/responseChange'
+        '404':
+          description: Old UniqueId not found on this country(instance)
+          schema:
+            $ref: '#/definitions/errorModel'
+        '500':
+          description: Server Internal Error
+          schema:
+            $ref: '#/definitions/errorModel'
+        '503':
+          description: Temporary Server Error. Retry Later
+          schema:
+            $ref: '#/definitions/errorModel'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+  
+definitions:
+  changeItem:
+    type: object
+    required:
+      - instance
+      - oldUniqueid
+      - newUniqueid
+    properties:
+      instance:
+        type: integer
+        format: int32
+        description: "25=BR Production. 31=BR Preproduction"
+      oldUniqueid:
+        type: string
+        description: "Example: 292993939393"
+      newUniqueid:
+        type: string
+        description: "Example: TV-SPO-3939293"
+  responseChange:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Ok"
+  errorModel:
+    type: object
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+        enum:
+          - Success
+          - Internal Error
+          - Retry Later
+          - Old UniqueId not Found
+          - Wrong InstanceId
+          - Other error
+          - Unknown error
+          - Internal Timeout
+      message:
+        type: string
