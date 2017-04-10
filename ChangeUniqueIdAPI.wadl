@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://wadl.dev.java.net/2009/02">
+  <doc xml:lang="en" title="ChangeUniqueId API">API describing ChangeUniqueId API</doc>
+  <resources base="https://babom.gvp.telefonica.com/ossbss/v1">
+    <resource path="ChangeUniqueId" id="/ChangeUniqueId">
+      <doc xml:lang="en" title="/ChangeUniqueId"/>
+      <method name="POST" id="operationChangeUniqueId">
+        <doc xml:lang="en" title="operationChangeUniqueId">For a given instance, it changes the old uniqueId for the new uniqueId</doc>
+        <request>
+          <representation mediaType="application/json"/>
+        </request>
+        <response status="200">
+          <representation mediaType="application/json"/>
+          <representation mediaType="application/json; charset=ISO-8859-1"/>
+        </response>
+        <response status="404">
+          <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+          <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+          <representation mediaType="application/json"/>
+        </response>
+        <response status="">
+          <representation mediaType="application/json"/>
+          <representation mediaType="application/json"/>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>
