@@ -11,7 +11,7 @@
         </request>
         <response status="200">
           <representation mediaType="application/json"/>
-          <representation mediaType="application/json; charset=ISO-8859-1"/>
+          <representation mediaType="application/json; charset=UTF-8"/>
         </response>
         <response status="404">
           <representation mediaType="application/json"/>
