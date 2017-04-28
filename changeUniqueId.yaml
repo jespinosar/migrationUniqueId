@@ -1,13 +1,13 @@
 swagger: '2.0'
 info:
-  version: '0.6.6'
+  version: '0.6.7'
   title: ChangeUniqueId API
   description: API describing ChangeUniqueId API
   contact:
     name: GVP OSSBSS team
     email: javier.espinosaruiz@telefonica.com
   
-host: babom.gvp.telefonica.com
+host: babom.gvp.telefonica.com:7443
 basePath: /ossbss/v1
 schemes:
   - https
