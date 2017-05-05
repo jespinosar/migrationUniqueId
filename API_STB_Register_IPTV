@@ -1,0 +1,117 @@
+swagger: '2.0'
+info:
+  title: Authenticate STB API
+  description: Authenticate STB API for OSS Telefonica Open Platform
+  version: 1.1.1
+host: api.authenticatestb.telefonica.com
+schemes:
+  - https
+basePath: /v1
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /stbs:
+    post:
+      summary: Register new STB
+      description: |
+        The STBs endpoint allows registering a new STB.
+      parameters:
+        - name: stbDataBody
+          in: body
+          description: Structrue with JSON STB Data
+          required: true
+          schema:
+            $ref: '#/definitions/stbDataBody'
+      tags:
+        - Stbs
+      responses:
+        '200':
+          description: 'Success, even if STB was already registered Code returned: Success'
+          schema:
+            $ref: '#/definitions/errorModel'
+        '400':
+          description: >-
+            Bad request, request has bad parameters. Code returned: Malformed
+            request
+          schema:
+            $ref: '#/definitions/errorModel'
+        '404':
+          description: >-
+            There is no user for that IP/STB data. Code returned: IP or STB
+            mac/guid/casn was not found. No user
+          schema:
+            $ref: '#/definitions/errorModel'
+        '500':
+          description: 'Internal server error. Code returned: Internal Error'
+          schema:
+            $ref: '#/definitions/errorModel'
+        '503':
+          description: 'Temporary Server Error. Retry Later. Code returned: Retry Later'
+          schema:
+            $ref: '#/definitions/errorModel'
+        default:
+          description: 'Unexpected error. Code returned: Unknown error '
+        schema:
+          $ref: '#/definitions/errorModel'
+definitions:
+  stbDataBody:
+    type: object
+    required:
+      - mac
+      - serial
+      - stbid
+      - stbmodel
+      - stbdevicetype
+      - dvr
+    properties:
+      mac:
+        type: string
+        description: 'Example: 000a959d6816'
+      serial:
+        type: string
+        description: 'Example: 4CE0460D0G'
+      stbid:
+        type: string
+        description: >-
+          GUID or CASN. Example: 5edb9664-9f28-49a6-9855-bdd998b4b369 or
+          012345678912@987654321012
+      stbmodel:
+        type: string
+        description: 'Example: PROTEUS-V1'
+      stbdevicetype:
+        type: string
+        description: 'Example: 805'
+      dvr:
+        type: boolean
+        description: 'Example: false'
+        default: true
+      ipsrc:
+        type: string
+        description: >-
+          Optional field for proxies when source IP will be NATed. Example:
+          23.10.193.2
+  errorModel:
+    type: object
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+        enum:
+          - Success
+          - Internal Error
+          - Retry Later
+          - STB not Found
+          - Business Logic does not allow register
+          - IP or STB mac/guid/casn was not found. No user
+          - Other error
+          - Unknown error
+          - Internal Timeout
+          - Malformed request
+      message:
+        type: string
+        description: A string with useful information
