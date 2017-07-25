@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '0.6.7'
+  version: '0.6.8'
   title: ChangeUniqueId API
   description: API describing ChangeUniqueId API
   contact:
@@ -61,7 +61,7 @@ definitions:
       - oldUniqueid
       - newUniqueid
     properties:
-      instanceid:
+      instance:
         type: integer
         format: int32
         description: "25=BR Production. 31=BR Preproduction"
