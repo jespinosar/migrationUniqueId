@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '0.6.8'
+  version: '0.6.10'
   title: ChangeUniqueId API
   description: API describing ChangeUniqueId API
   contact:
@@ -39,19 +39,19 @@ paths:
         '404':
           description: Old UniqueId not found on this country(instance)
           schema:
-            $ref: '#/definitions/errorModel'
+            $ref: '#/definitions/responseChange'
         '500':
           description: Server Internal Error
           schema:
-            $ref: '#/definitions/errorModel'
+            $ref: '#/definitions/responseChange'
         '503':
           description: Temporary Server Error. Retry Later
           schema:
-            $ref: '#/definitions/errorModel'
+            $ref: '#/definitions/responseChange'
         default:
           description: unexpected error
           schema:
-            $ref: '#/definitions/errorModel'
+            $ref: '#/definitions/responseChange'
   
 definitions:
   changeItem:
@@ -74,20 +74,11 @@ definitions:
   responseChange:
     type: object
     required:
-      - message
-    properties:
-      message:
-        type: string
-        default: "Ok"
-  errorModel:
-    type: object
-    required:
       - code
       - message
     properties:
       code:
-        type: integer
-        format: int32
+        type: string 
         enum:
           - Success
           - Internal Error
