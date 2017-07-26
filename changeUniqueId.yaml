@@ -62,8 +62,7 @@ definitions:
       - newUniqueid
     properties:
       instance:
-        type: integer
-        format: int32
+        type: string
         description: "25=BR Production. 31=BR Preproduction"
       oldUniqueid:
         type: string
